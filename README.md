@@ -1,0 +1,1 @@
+# StoxMate-Stock-Market-Predictor-Using-Sentimental-Analysis
