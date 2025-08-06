@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volatiq - Signup</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #34495e;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1abc9c;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            color: #34495e;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            border-color: #1abc9c;
+            outline: none;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: #1abc9c;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .signup-button:hover {
+            background-color: #16a085;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+
+    <script>
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4NeQWAY3SG5b0YLt5DS1Q3zAXB-imLhI", 
+            authDomain: "stock-predictor-3fc23.firebaseapp.com", 
+            projectId: "stock-predictor-3fc23",
+            storageBucket: "stock-predictor-3fc23.appspot.com",
+            messagingSenderId: "301258227915",
+            appId: "1:301258227915:web:7c8850e993a10115e11b4e"
+        };
+        
+       
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const contact = document.getElementById('contact').value;
+            const pan = document.getElementById('pan').value;
+
+            
+            if (!/^[a-zA-Z\s]+$/.test(name)) {
+                alert("Please enter a valid name (letters only).");
+                return false;
+            }
+
+           
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert("Please enter a valid email.");
+                return false;
+            }
+
+         
+            if (!/^\d{10}$/.test(contact)) {
+                alert("Please enter a valid contact number (10 digits).");
+                return false;
+            }
+
+          
+            if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan)) {
+                alert("Please enter a valid PAN card number (5 letters, 4 digits, 1 letter).");
+                return false;
+            }
+
+            return true;
+        }
+
+        function signUpWithFirebase(event) {
+            event.preventDefault(); 
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const contact = document.getElementById('contact').value;
+            const pan = document.getElementById('pan').value;
+
+            if (validateForm()) {
+                
+                fetch('/submit_signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, contact, pan })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        
+                        document.getElementById('otp-input').style.display = 'block';
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        function verifyOtp(event) {
+            event.preventDefault(); 
+
+            const otp = document.getElementById('otp').value;
+
+           
+            fetch('/verify_otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ otp })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('OTP verified successfully! Welcome, ' + name + '!');
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:8501'; 
+                        }, 1000);
+                } else {
+                    alert('Invalid OTP!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Signup for Volatiq</h1>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" required>
+                </div>
+                <div class="input-group">
+                    <label for="pan">PAN Card</label>
+                    <input type="text" id="pan" name="pan" required>
+                </div>
+                <button type="submit" class="signup-button" onclick="signUpWithFirebase(event);">Signup</button>
+            </form>
+            <div id="otp-input" style="display: none;">
+                <label for="otp">Enter OTP:</label>
+                <input type="number" id="otp" name="otp" required>
+                <button type="submit" class="signup-button" onclick="verifyOtp(event);">Verify OTP</button>
+            </div>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
