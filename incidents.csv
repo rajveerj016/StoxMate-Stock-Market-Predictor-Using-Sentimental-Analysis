@@ -1,0 +1,12 @@
+ticker,type,severity,price_change,initial_price,current_price,sentiment,timestamp,description,datetime
+AAPL,Price Drop,Low,-0.0320429008014169,205.35001,198.77,0.0,2025-05-06 02:44:38,AAPL had a low level decrease of 3.20%,2025-05-06 02:44:38.000000
+AAPL,Price Drop,Low,-0.0320429008014169,205.35001,198.77,0.0,2025-05-06 02:48:01,AAPL had a low level decrease of 3.20%,2025-05-06 02:48:01.000000
+TSLA,Price Drop,Low,-0.0244071593749228,287.20999,280.20001,0.0,2025-05-06 02:48:41,TSLA had a low level decrease of 2.44%,2025-05-06 02:48:41.000000
+AAPL,Price Drop,Low,-0.0320429008014169,205.35001,198.77,0.0,2025-05-06 02:53:27,AAPL had a low level decrease of 3.20%,2025-05-06 02:53:27.000000
+AAPL,Price Drop,Low,-0.0314585326779385,205.35001,198.89,0.0,2025-05-06 10:19:24,AAPL had a low level decrease of 3.15%,2025-05-06 10:19:24.000000
+AAPL,Price Drop,Low,-0.0314585326779385,205.35001,198.89,0.0,2025-05-06 13:34:04,AAPL had a low level decrease of 3.15%,2025-05-06 13:34:04.000000
+AAPL,Price Drop,Low,-0.0314585326779385,205.35001,198.89,0.0,2025-05-06 13:37:06,AAPL had a low level decrease of 3.15%,2025-05-06 13:37:06.000000
+AAPL,Price Movement,Low,0.0156687898089171,196.25,199.325,0.0,2025-05-08 21:17:54,AAPL had a low level increase of 1.57%,2025-05-08 21:17:54.000000
+AAPL,Price Movement,Low,0.0155414012738854,196.25,199.3,0.0,2025-05-08 21:19:37,AAPL had a low level increase of 1.55%,2025-05-08 21:19:37.000000
+TSLA,Price Movement,Low,0.045905437694591,276.22,288.9,0.0,2025-05-08 21:20:04,TSLA had a low level increase of 4.59%,2025-05-08 21:20:04.000000
+TSLA,Price Movement,Low,0.045869234668018094,276.22,288.89,0.0,2025-05-08 21:21:17,TSLA had a low level increase of 4.59%,2025-05-08 21:21:17.223796
